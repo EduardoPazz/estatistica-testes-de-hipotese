@@ -59,5 +59,3 @@ def gradiente_f():
 print(gradiente_f())
 
 
-
-
