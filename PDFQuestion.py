@@ -1,5 +1,5 @@
 class PDFQuestion:
-    def __init__(self, id, a, b, c):
+    def __init__(self, id: int, a: float, b: float, c: float):
         self.id = id
         self.a = a
         self.b = b
