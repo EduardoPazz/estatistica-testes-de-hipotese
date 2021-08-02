@@ -1,39 +1,17 @@
-from PDFQuestion import pdf_list
-from expected_value import expected_value
-from variance import variance
-
-theta = 0
-total_expected_value = 0.0
-total_variance = 0.0
-
-for pdf in pdf_list:
-    total_expected_value += expected_value({0, 1}, pdf.apply, theta)
-    total_variance += variance({0, 1}, pdf.apply, theta)
+import matplotlib.pyplot as plt
+import numpy as np
+from thetas import thetas
+from theta_hat import prob_A as theta_hat_prob_A, l_A as theta_hat_l_A, prob_B as theta_hat_prob_B, l_B as theta_hat_l_B
+from quantity import prob_A as quantity_prob_A, l_A as quantity_l_A, prob_B as quantity_prob_B, l_B as quantity_l_B
 
 
-from statistics import NormalDist
-from math import sqrt
 
-sigma = sqrt(total_variance)
-
-l = total_expected_value + (-1.645 * sigma)
-
-prob = NormalDist(0, 1).cdf(-1.645)
-
-print(l)
-
-print(f"Pr(T <= {l} | theta={theta}) = {prob}")
-
-# import matplotlib.pyplot as plt
-# import numpy as np
-
-# pdf = pdf_list[0]
-
-# x = np.linspace(-10, 10, 100)
-
-# for n in [1, 2]:
-#     y = [ pdf.apply(1, i) * n for i in x ]
-#     plt.plot(x, y)
-
-
-# plt.savefig("test.png")
+# plt.plot(thetas, theta_hat_prob_A, color="green")
+# plt.plot(thetas, quantity_prob_A, color="blue")
+plt.plot(thetas, theta_hat_prob_B, color="green")
+plt.plot(thetas, quantity_prob_B, color="blue")
+plt.axline((-4, 0.05), (4, 0.05), color="red")
+plt.yticks([0, 0.05, 0.5, 1.0])
+plt.ylabel("Função Poder")
+plt.xlabel("theta")
+plt.savefig("theta_2.png")
